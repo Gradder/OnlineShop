@@ -5,6 +5,15 @@
         <h2><spring:message code="label.categories"/></h2>
         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
             <form action="${pageContext.request.contextPath}/welcome">
+
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                   <h4 class="panel-title">
+                        <button type=submit class="category-button" name="category"><spring:message code="label.category.ALL"/></button>
+                        </h4>
+                    </div>
+                </div>
+
             <c:forEach var="category" items="${categories}">
 
                             <script>

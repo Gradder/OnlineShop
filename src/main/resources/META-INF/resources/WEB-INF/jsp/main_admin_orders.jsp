@@ -6,9 +6,9 @@
 
 <section>
     <div class="container">
-        <div class="row">
+        <div class="top-bar">
             <jsp:include page="admin_categories.jsp"></jsp:include>
-            <div class="col-sm-9 padding-right">
+            <div class="col-sm-9 padding-right" style=" flex-direction: column;">
                 <jsp:include page="orders_table.jsp"></jsp:include>
 
                 </body>

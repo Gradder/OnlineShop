@@ -51,6 +51,6 @@
             </script>
         </tr>
     </table>
-    <input type=hidden name="category" value="<% if (request.getParameter("category") == null){out.print("STAR_WARS");}else{out.print(request.getParameter("category"));}%>"/>
+    <input type=hidden name="category" value="<% if (request.getParameter("category") == null){out.print("");}else{out.print(request.getParameter("category"));}%>"/>
 </form>
 <!--features_items-->

@@ -27,8 +27,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllProductsWithPageable(Pageable page) {
+        return productRepository.findAllWithPageable(page).getContent();
+    }
+
+    @Override
     public int getCountByCategory(Category category) {
         return productRepository.findAllByCategory(category);
+    }
+
+    @Override
+    public int getCountAll() {
+        return productRepository.getCountAll();
     }
 
     @Override

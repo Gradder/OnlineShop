@@ -26,7 +26,7 @@
                         <button class="btn btn-default" type = "submit"><spring:message code="label.addProduct"/></button>
                     </add:form>
                 </td>
-                <td><h4 style = "margin-left: 40px; margin-right: 40px;">Choose the product category:</h4></td>
+                <td><h4 style = "margin-left: 40px; margin-right: 40px;"><spring:message code="label.selector.productCategory"/></h4></td>
                 <td>
                     <select id = "category" style = "width: 250px;" onchange = "filter(${fn:length(productList)})">
                         <option value = "ALL">ALL</option>
@@ -46,11 +46,11 @@
             <th><spring:message code="label.image"/></th>
             <th><spring:message code="label.name"/></th>
             <th><spring:message code="label.price"/></th>
-            <th>Category</th>
+            <th><spring:message code="label.categories"/></th>
             <th><spring:message code="label.edit"/></th>
         </tr>
         <c:forEach var = "product" items = "${productList}">
-                <tr style = "display: block;" id = "tr${product.id}">
+                <tr id = "tr${product.id}">
                     <td><img style = "height: 40px;" src = "${pageContext.request.contextPath}/images/products/${product.imageLink}"></td>
                     <td>${product.name}</td>
                     <td>$${product.price}</td>
@@ -74,13 +74,13 @@
 
         if (category == 'ALL') {
             for (var i = 1; i <= size; i++) {
-                document.getElementById('tr' + i.toString()).style.display = 'block';
+                document.getElementById('tr' + i.toString()).style.display = '';
         }
         } else {
             for (var i = 1; i <= size; i++) {
 
                 if ((document.getElementById(i.toString())).innerText == category) {
-                    document.getElementById('tr' + i.toString()).style.display = 'block';
+                    document.getElementById('tr' + i.toString()).style.display = '';
                 } else {
                     document.getElementById('tr' + i.toString()).style.display = 'none';
                 }

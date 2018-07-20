@@ -12,10 +12,23 @@
                     </div>
                     <div class="btn-group pull-right">
                         <div class="btn-group">
-                            <select class="btn btn-default dropdown-toggle usa" onchange="window.location.href=this.value">
-                                <option value="${pageContext.request.contextPath}?lang=en"><spring:message code="label.english"/></option>
-                                <option value="${pageContext.request.contextPath}?lang=ru"><spring:message code="label.russian"/></option>
-                            </select>
+                         <%--   <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
+                                <spring:message code="label.language"/>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="${pageContext.request.contextPath}?lang=en"><spring:message
+                                        code="label.english"/></a></li>
+                                <li><a href="${pageContext.request.contextPath}?lang=ru"><spring:message
+                                        code="label.russian"/></a></li>
+                            </ul>--%>
+                             <div class="dropdown">
+                                 <button class="dropbtn"><spring:message code="label.language"/></button>
+                                 <div class="dropdown-content">
+                                     <a href="${pageContext.request.contextPath}?lang=en"><spring:message code="label.english"/></a>
+                                     <a href="${pageContext.request.contextPath}?lang=ru"><spring:message code="label.russian"/></a>
+                                 </div>
+                             </div>
                         </div>
 
                     </div>

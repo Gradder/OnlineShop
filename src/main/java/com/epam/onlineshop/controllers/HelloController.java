@@ -32,12 +32,13 @@ public class HelloController {
     @GetMapping({"/","/welcome"})
     public ModelAndView main(@RequestParam(value = "page", required = false) Integer numOfPage, @RequestParam(value = "category", required = false) Category category) {
         int numOfProductsOnPage = 3;
+        boolean isAll = false;
         if((numOfPage == null)||(numOfPage<0)) {
             numOfPage = 1;
         }
         numOfPage--;
         if((category == null)) {
-            category = Category.STAR_WARS;
+            isAll = true;
         }
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -46,10 +47,21 @@ public class HelloController {
         String viewName = getViewName(loggedInUser.getRole());
         ModelAndView modelAndView = new ModelAndView(viewName);
         if (loggedInUser.getRole().equals(Role.USER)){
-        Pageable page = new PageRequest(numOfPage, numOfProductsOnPage);
-        List<Product> product = productService.findAllProductsByCategory(page, category);
+
+            List<Product> product;
+            double temp;
+
+            Pageable page = new PageRequest(numOfPage, numOfProductsOnPage);
+
+            if(isAll){
+                product = productService.getAllProductsWithPageable(page);
+                temp = productService.getCountAll()/(double)numOfProductsOnPage;
+            }else{
+                product = productService.findAllProductsByCategory(page, category);
+                temp = productService.getCountByCategory(category)/(double)numOfProductsOnPage;
+            }
+
         modelAndView.addObject(product);
-        double temp = productService.getCountByCategory(category)/(double)numOfProductsOnPage;
         int numOfPages = (int)Math.ceil(temp);
         modelAndView.addObject("pages", numOfPages);
         List<Category> categories = Arrays.asList(Category.values());

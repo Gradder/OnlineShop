@@ -9,7 +9,9 @@ import java.util.List;
 public interface ProductService {
 
     List<Product> getAllProducts();
+    List<Product> getAllProductsWithPageable(Pageable page);
     int getCountByCategory(Category category);
+    int getCountAll();
     List<Product> findAllProductsByCategory(Pageable page, Category category);
 
     boolean addNewProduct(Product product);

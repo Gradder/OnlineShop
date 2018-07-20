@@ -22,4 +22,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT count(a) from Product as a where a.category = :category")
     int findAllByCategory(@Param("category") Category category);
+
+    @Query("SELECT count(a) from Product as a")
+    int getCountAll();
+
+    @Query(value = "SELECT a FROM Product as a ",
+            countQuery = "SELECT count(a) from Product as a")
+    Page<Product> findAllWithPageable(Pageable page);
 }

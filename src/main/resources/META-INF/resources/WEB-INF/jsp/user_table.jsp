@@ -9,13 +9,13 @@
         <h3 class = "navbar-header"><spring:message code="label.users"/></h3>
         <table class = "table table-condensed admin-table">
             <tr>
-                <th><spring:message code="label.userName"/></th>
+                <th><spring:message code="label.users.usernamefield"/></th>
                 <th><spring:message code="label.role"/></th>
                 <th><spring:message code="label.address"/></th>
-                <th>First name</th>
-                <th>Second name</th>
-                <th>Phone number</th>
-                <th><spring:message code="label.block"/></th>
+                <th><spring:message code="label.firstName"/></th>
+                <th><spring:message code="label.lastName"/></th>
+                <th><spring:message code="label.phoneNumber"/></th>
+                <th><spring:message code="label.blocking"/></th>
             </tr>
             <c:forEach var = "user" items = "${userList}">
                 <tr>
