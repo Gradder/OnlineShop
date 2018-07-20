@@ -17,7 +17,7 @@ public interface ProductInOrderRepository extends JpaRepository<ProductInOrder, 
             "and orderInCart.order.status = 'NEW'")
     List<ProductInOrder> findAllNewOrderByUser(@Param("user") User user);
 
-    @Query("select a from ProductInOrder as a where a.order.user = :user and a.order.status = 'PREPAID' or a.order.status = 'DELIVERED'")
+    @Query("select a from ProductInOrder as a where a.order.user = :user and (a.order.status = 'PREPAID' or a.order.status = 'DELIVERED')")
     List<ProductInOrder> findAllOrderedByUser(@Param("user") User user);
 
     @Query("select a from ProductInOrder as a where a.order.user = :user and a.order.status = 'NEW' and a.product.id = :product_id")

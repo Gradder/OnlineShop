@@ -33,6 +33,14 @@ public class CartController {
         return model;
     }
 
+    @GetMapping(value = "/cart/order")
+    public ModelAndView payOrderGet(ModelAndView model, Principal principal) {
+        productInOrderService.makeOrder(userService.findByUsername(principal.getName()));
+        model.addObject("isPaid", true);
+        model.setViewName("payment0");
+        return model;
+    }
+
     @PostMapping(value = "/cart/order")
     public ModelAndView payOrder(ModelAndView model, Principal principal) {
         productInOrderService.makeOrder(userService.findByUsername(principal.getName()));

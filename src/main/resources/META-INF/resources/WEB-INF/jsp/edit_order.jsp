@@ -13,7 +13,7 @@
 
 <div class = "container">
     <div>
-        <h3><spring:message code="label.productsInOrder"/> ${order.id}:</h3>
+        <h3><spring:message code="label.productsInOrder"/> № ${order.id}:</h3>
         <br>
         <table>
             <tr>
@@ -23,7 +23,7 @@
             <c:forEach items = "${productsInOrder}" var = "productInOrder">
                 <tr>
                     <td>${productInOrder.product.name}</td>
-                    <td>${productInOrder.quantity}</td>
+                    <td style="text-align: center">${productInOrder.quantity}</td>
                 </tr>
             </c:forEach>
         </table>
