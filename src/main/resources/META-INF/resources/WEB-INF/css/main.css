@@ -930,7 +930,9 @@ h2.title:before{
 .features_items{
 	overflow:hidden;
 }
-
+.admin-v-left{
+  margin-left: -150px;
+}
 
 h2.title {
   color: #FE980F;

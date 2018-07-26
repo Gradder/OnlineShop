@@ -6,7 +6,7 @@
 <%@ taglib prefix="orders" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<div class="col-sm-3">
+<div class="col-sm-3 admin-v-left">
     <br>
     <br>
     <br>

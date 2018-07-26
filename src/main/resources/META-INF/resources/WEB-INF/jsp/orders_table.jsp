@@ -13,6 +13,7 @@
 
 <div class="container">
     <h3 class = "navbar-header"><spring:message code="label.orders"/></h3>
+    <div class = "login-form">
     <table class = "table table-condensed orders-table">
         <tr>
             <th><spring:message code="label.user"/></th>
@@ -20,15 +21,16 @@
             <th><spring:message code="label.edit"/></th>
         </tr>
     </table>
+    </div>
     <div class = "login-form">
         <c:forEach var = "order" items = "${orders}">
             <editing:form action = "/orders/${order.id}/edit" method="get">
                 <table class = "table table-condensed orders-table">
                     <tr>
                         <%--<edit:form action = "/orders/${order.id}/edit" method="get"--%>
-                            <td class = "username">"${order.user.username}"</td>
-                            <td class = "status">"${order.status}"</td>
-                            <td class = "button">
+                            <td>${order.user.username}</td>
+                            <td>${order.status}</td>
+                            <td>
                                 <button class = "btn btn-default" type = "submit"><spring:message code="label.edit"/></button>
 
                             </td>
@@ -38,26 +40,4 @@
             </editing:form>
         </c:forEach>
     </div>
-
-
-<%--
-            <div id = "div${order.id}" style = "display: none;">
-
-                <table class = "table table-condensed products">
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th></th>
-                    </tr>
-                        <c:forEach var = "productInOrder" items = "${order.productsInOrder}">
-                            <tr>
-                                <td class = "name">${productInOrder.product.name}</td>
-                                <td class = "quantity">${productInOrder.quantity}</td>
-                            </tr>
-                        </c:forEach>
-                </table>
-            </div>
-            --%>
-
-        <%--</c:forEach>--%>
 </div>

@@ -53,7 +53,7 @@
                 <tr id = "tr${product.id}">
                     <td><img style = "height: 40px;" src = "${pageContext.request.contextPath}/images/products/${product.imageLink}"></td>
                     <td>${product.name}</td>
-                    <td>$${product.price}</td>
+                    <td>${product.price} ¤</td>
                     <td><p id = "${product.id}">${product.category}</p></td>
                     <td>
                         <div class = "login-form">
