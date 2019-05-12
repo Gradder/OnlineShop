@@ -25,14 +25,15 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class UserController {
 
+    private static final String USER_JSP = "userJSP";
     private final UserService userService;
     private final UserValidator userValidator;
     private final ProductInOrderService productInOrderService;
-    private final static Logger logger = Logger.getLogger(UserController.class);
+    private static final Logger logger = Logger.getLogger(UserController.class);
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping(value = "/registration")
     public ModelAndView openRegistrationForm(ModelAndView model) {
-        model.addObject("userJSP", new User());
+        model.addObject(USER_JSP, new User());
         model.setViewName("registration");
         return model;
     }
@@ -49,11 +50,11 @@ public class UserController {
         return model;
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    @GetMapping(value = "/profile")
     public ModelAndView openProfile(ModelAndView model, Principal principal) {
         String username = principal.getName();
         User currentUser = userService.findByUsername(username);
-        model.addObject("userJSP", currentUser);
+        model.addObject(USER_JSP, currentUser);
         List<ProductInOrder> allOrdersByUser = productInOrderService.findAllOrderedByUser(currentUser);
         model.addObject("products", allOrdersByUser);
         model.setViewName("profile");
@@ -64,7 +65,7 @@ public class UserController {
     public ModelAndView openEditProfileForm(ModelAndView model, Principal principal) {
         String username = principal.getName();
         User currentUser = userService.findByUsername(username);
-        model.addObject("userJSP", currentUser);
+        model.addObject(USER_JSP, currentUser);
         model.setViewName("edit_profile");
         return model;
     }
@@ -78,7 +79,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/registration")
-    public ModelAndView addUser(@ModelAttribute("userJSP") User user, BindingResult bindingResult, ModelAndView model) {
+    public ModelAndView addUser(@ModelAttribute(USER_JSP) User user, BindingResult bindingResult, ModelAndView model) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             model.setViewName("registration");

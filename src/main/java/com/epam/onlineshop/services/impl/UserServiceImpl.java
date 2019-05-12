@@ -5,7 +5,6 @@ import com.epam.onlineshop.entities.User;
 import com.epam.onlineshop.repository.UserRepository;
 import com.epam.onlineshop.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +22,8 @@ public class UserServiceImpl implements UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final static Logger logger = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+
     @Transactional
     @Override
     public boolean addUser(User user) {
@@ -74,12 +74,12 @@ public class UserServiceImpl implements UserService {
 
     public User findById(Long id) {
         Optional<User> result = userRepository.findById(id);
-        return (result.isPresent()) ? result.get() : null;
+        return result.orElse(null);
     }
 
     @Override
-    public boolean changeBlockedStatus(User user) {
+    public void changeBlockedStatus(User user) {
         user.setIsBlocked(!user.getIsBlocked());
-        return userRepository.save(user) != null;
+        userRepository.save(user);
     }
 }

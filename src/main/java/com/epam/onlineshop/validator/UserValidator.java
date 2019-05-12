@@ -12,29 +12,35 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor
 public class UserValidator implements Validator {
 
-    private final  UserService userService;
+  private static final String USERNAME = "username";
+  public static final String NOT_EMPTY = "NotEmpty";
+  private final UserService userService;
 
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+  @Override
+  public boolean supports(Class<?> aClass) {
+    return User.class.equals(aClass);
+  }
+
+  @Override
+  public void validate(Object object, Errors errors) {
+    if (object == null) {
+      return;
     }
 
-    @Override
-    public void validate(Object object, Errors errors) {
-        User user = (User) object;
+    User user = (User) object;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 1 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size.userForm.username");
-        }
-        if (userService.findByUsername(user.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate.userForm.username");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "NotEmpty");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.userForm.password");
-        }
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, USERNAME, NOT_EMPTY);
+    if (user.getUsername().length() < 1 || user.getUsername().length() > 32) {
+      errors.rejectValue(USERNAME, "Size.userForm.username");
     }
+    if (userService.findByUsername(user.getUsername()) != null) {
+      errors.rejectValue(USERNAME, "Duplicate.userForm.username");
+    }
+
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", NOT_EMPTY);
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", NOT_EMPTY);
+    if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+      errors.rejectValue("password", "Size.userForm.password");
+    }
+  }
 }

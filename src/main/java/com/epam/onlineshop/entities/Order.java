@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -23,9 +21,6 @@ public class Order {
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-/*    @Column(name = "date_and_time", nullable = false)
-    private LocalDateTime dateAndTime;*/ // We needn't this yet
 
     @Column(name = "status", nullable = false)
     @Enumerated(value = EnumType.STRING)

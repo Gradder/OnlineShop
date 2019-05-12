@@ -1,7 +1,6 @@
 package com.epam.onlineshop.validator;
 
 import com.epam.onlineshop.entities.Product;
-import com.epam.onlineshop.entities.User;
 import com.epam.onlineshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,6 +21,10 @@ public class ProductValidator implements Validator {
 
     @Override
     public void validate(Object object, Errors errors) {
+        if (object == null) {
+            return;
+        }
+
         Product product = (Product) object;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");

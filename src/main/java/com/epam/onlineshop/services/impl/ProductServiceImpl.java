@@ -4,6 +4,7 @@ import com.epam.onlineshop.entities.Category;
 import com.epam.onlineshop.entities.Product;
 import com.epam.onlineshop.repository.ProductRepository;
 import com.epam.onlineshop.services.ProductService;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    private final static Logger logger = Logger.getLogger(ProductServiceImpl.class);
+    private static final Logger logger = Logger.getLogger(ProductServiceImpl.class);
 
     @Override
     public List<Product> getAllProducts() {
@@ -59,7 +60,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).get();
+        Optional<Product> byId = productRepository.findById(id);
+        return byId.orElse(null);
     }
 
     public boolean isProductExist(String name) {

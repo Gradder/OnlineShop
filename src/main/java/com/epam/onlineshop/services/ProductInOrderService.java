@@ -9,7 +9,7 @@ public interface ProductInOrderService {
 
     List<ProductInOrder> findAllOrderedByUser(User user);
 
-    ProductInOrder addOrderInCart(Long product_id, User user);
+    ProductInOrder addOrderInCart(Long productId, User user);
 
     List<ProductInOrder> findAllNewOrderByUser(User user);
 

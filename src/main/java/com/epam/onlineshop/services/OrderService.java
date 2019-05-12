@@ -1,10 +1,6 @@
 package com.epam.onlineshop.services;
 
 import com.epam.onlineshop.entities.Order;
-import com.epam.onlineshop.entities.ProductInOrder;
-import com.epam.onlineshop.entities.Status;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 

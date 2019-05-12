@@ -14,8 +14,11 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class CartController {
 
+    private static final String REDIRECT_CART = "redirect:/cart";
+    private static final String PAYMENT_0 = "payment0";
     private final ProductInOrderService productInOrderService;
     private final UserService userService;
+    private static final String IS_PAID = "isPaid";
 
     @GetMapping(value = "/cart")
     public ModelAndView openCart(ModelAndView model, Principal principal) {
@@ -27,50 +30,42 @@ public class CartController {
     }
 
     @GetMapping(value = "/cart/payment")
-    public ModelAndView openPayment(ModelAndView model, Principal principal) {
-        model.addObject("isPaid", false);
-        model.setViewName("payment0");
+    public ModelAndView openPayment(ModelAndView model) {
+        model.addObject(IS_PAID, false);
+        model.setViewName(PAYMENT_0);
         return model;
     }
 
     @GetMapping(value = "/cart/order")
     public ModelAndView payOrderGet(ModelAndView model, Principal principal) {
         productInOrderService.makeOrder(userService.findByUsername(principal.getName()));
-        model.addObject("isPaid", true);
-        model.setViewName("payment0");
+        model.addObject(IS_PAID, true);
+        model.setViewName(PAYMENT_0);
         return model;
     }
 
-    @PostMapping(value = "/cart/order")
-    public ModelAndView payOrder(ModelAndView model, Principal principal) {
-        productInOrderService.makeOrder(userService.findByUsername(principal.getName()));
-        model.addObject("isPaid", true);
-        model.setViewName("payment0");
-        return model;
-    }
-
-    @RequestMapping(value = "/cart/{id}/delete", method = RequestMethod.GET)
+    @GetMapping(value = "/cart/{id}/delete")
     public ModelAndView deleteProduct(@PathVariable("id") Long id, ModelAndView model) {
         productInOrderService.deleteById(id);
-        model.setViewName("redirect:/cart");
+        model.setViewName(REDIRECT_CART);
         return model;
     }
 
-    @RequestMapping(value = "/cart/{id}/inc", method = RequestMethod.GET)
+    @GetMapping(value = "/cart/{id}/inc")
     public ModelAndView incrementCount(@PathVariable("id") Long id, ModelAndView model) {
         productInOrderService.incrementCount(id);
-        model.setViewName("redirect:/cart");
+        model.setViewName(REDIRECT_CART);
         return model;
     }
 
-    @RequestMapping(value = "/cart/{id}/decrement", method = RequestMethod.GET)
+    @GetMapping(value = "/cart/{id}/decrement")
     public ModelAndView decrementCount(@PathVariable("id") Long id, ModelAndView model) {
         if (productInOrderService.getQuantityById(id) > 1) {
             productInOrderService.decrementCount(id);
         } else {
             productInOrderService.deleteById(id);
         }
-        model.setViewName("redirect:/cart");
+        model.setViewName(REDIRECT_CART);
         return model;
     }
 

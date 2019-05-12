@@ -4,9 +4,6 @@ import javax.persistence.*;
 
 import lombok.*;
 
-import java.util.Collection;
-import lombok.*;
-
 import java.util.List;
 
 @Entity

@@ -23,10 +23,11 @@ import static com.epam.onlineshop.entities.Status.PREPAID;
 @RequiredArgsConstructor
 public class ProductInOrderServiceImpl implements ProductInOrderService {
 
+    private static final String FOR_USER = "for user ";
     private final ProductRepository productRepository;
     private final ProductInOrderRepository productInOrderRepository;
     private final OrderRepository orderRepository;
-    private final static Logger logger = Logger.getLogger(ProductInOrderServiceImpl.class);
+    private static final Logger logger = Logger.getLogger(ProductInOrderServiceImpl.class);
 
     @Override
     public List<ProductInOrder> findAllNewOrderByUser(User user) {
@@ -40,14 +41,15 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
 
     @Transactional
     @Override
-    public ProductInOrder addOrderInCart(Long product_id, User user) {
-        Optional<ProductInOrder> optionalProductInOrder = productInOrderRepository.findOneOrderInCartByUserAndProductId(product_id, user);
+    public ProductInOrder addOrderInCart(Long productId, User user) {
+        Optional<ProductInOrder> optionalProductInOrder = productInOrderRepository.findOneOrderInCartByUserAndProductId(
+            productId, user);
         if (optionalProductInOrder.isPresent()) {
             ProductInOrder productInOrder = optionalProductInOrder.get();
             productInOrder.setQuantity(productInOrder.getQuantity() + 1);
             return productInOrderRepository.save(productInOrder);
         } else {
-            Product productFromCatalog = productRepository.getOne(product_id);
+            Product productFromCatalog = productRepository.getOne(productId);
             Order orderInCart = orderRepository.getOneNewOrderByUser(user);
             if (orderInCart == null){
                 orderInCart = orderRepository.save(Order.builder()
@@ -77,7 +79,7 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
             productInOrder.setQuantity(productInOrder.getQuantity() + 1);
             productInOrderRepository.save(productInOrder);
             logger.info("Quantity of product(" + productInOrder.getProduct().getName() + ") was incremented" +
-                    "for user " + productInOrder.getOrder().getUser().getUsername() + " in cart.");
+                    FOR_USER + productInOrder.getOrder().getUser().getUsername() + " in cart.");
         } else{
             logger.warn("Product didn't find!");
         }
@@ -91,7 +93,7 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
             productInOrder.setQuantity(productInOrder.getQuantity() - 1);
             productInOrderRepository.save(productInOrder);
             logger.info("Quantity of product(" + productInOrder.getProduct().getName() + ") was decremented" +
-                    "for user " + productInOrder.getOrder().getUser().getUsername() + " in cart.");
+                FOR_USER + productInOrder.getOrder().getUser().getUsername() + " in cart.");
         } else{
             logger.warn("Product didn't find!");
         }
@@ -115,7 +117,7 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
         }
         productInOrderRepository.saveAll(orders);
         logger.info("Made order in status PREPAID " +
-                "for user " + user.getUsername() + "");
+                FOR_USER + user.getUsername() + "");
     }
 
     @Override

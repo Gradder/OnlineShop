@@ -8,7 +8,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Data
@@ -21,7 +20,7 @@ public class Product {
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
