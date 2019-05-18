@@ -127,10 +127,6 @@ public class ProductInOrderServiceImpl implements ProductInOrderService {
 
     @Override
     public List<ProductInOrder> saveProductsInOrder(List<ProductInOrder> productsInOrder) {
-        for (ProductInOrder productInOrder : productsInOrder) {
-            productInOrderRepository.save(productInOrder);
-        }
-
-        return productsInOrder;
+        return productInOrderRepository.saveAll(productsInOrder);
     }
 }

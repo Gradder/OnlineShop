@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order findById(Long id) {
         Optional<Order> result = orderRepository.findById(id);
-        return (result.isPresent()) ? result.get() : null;
+        return result.orElse(null);
     }
 
     @Override
