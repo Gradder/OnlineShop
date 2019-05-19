@@ -29,7 +29,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProductsWithPageable(Pageable page) {
-        return productRepository.findAllWithPageable(page).getContent();
+        Page<Product> allWithPageable = productRepository.findAllWithPageable(page);
+        return allWithPageable.getContent();
     }
 
     @Override
@@ -51,11 +52,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public boolean addNewProduct(Product product) {
         if (!isProductExist(product.getName())) {
-            productRepository.save(product);
+            Product save = productRepository.save(product);
+            return save != null;
         }
 
         logger.info("Product " + product.getName() + " was added in DB.");
-        return isProductExist(product.getName());
+        return false;
     }
 
     @Override
@@ -75,10 +77,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean deleteProductById(Long id) {
-        Product product = getProductById(id);
-        productRepository.delete(product);
-        return (!isProductExist(product.getName()));
+    public void deleteProductById(Long id) {
+        productRepository.deleteById(id);
     }
 
 }

@@ -9,8 +9,6 @@ public interface UserService {
 
     boolean addUser(User user);
 
-    Role getRoleByUsername(String username);
-
     User findByUsername(String username);
 
     void updateUser(User user);

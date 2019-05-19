@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 import com.epam.onlineshop.entities.Order;
@@ -16,7 +15,6 @@ import com.epam.onlineshop.entities.User;
 import com.epam.onlineshop.repository.OrderRepository;
 import com.epam.onlineshop.repository.ProductInOrderRepository;
 import com.epam.onlineshop.repository.ProductRepository;
-import com.epam.onlineshop.services.impl.OrderServiceImpl;
 import com.epam.onlineshop.services.impl.ProductInOrderServiceImpl;
 import java.util.Collections;
 import java.util.List;
